@@ -295,3 +295,31 @@ html { scroll-behavior: smooth; }
   0%, 100% { border-color: hsl(var(--primary)); }
   50% { border-color: transparent; }
 }
+
+/* ========== DECODE MATCH BADGES ========== */
+.decode-match-success {
+  color: hsl(142 71% 45%);
+  background: hsl(142 71% 45% / 0.1);
+  border: 1px solid hsl(142 71% 45% / 0.3);
+  box-shadow: 0 0 12px hsl(142 71% 45% / 0.2), inset 0 0 8px hsl(142 71% 45% / 0.05);
+  backdrop-filter: blur(8px);
+  animation: glow-breathe-green 2s ease-in-out infinite;
+}
+.decode-match-success:hover {
+  box-shadow: 0 0 20px hsl(142 71% 45% / 0.35), inset 0 0 12px hsl(142 71% 45% / 0.1);
+  transform: scale(1.03);
+  transition: all 0.2s ease;
+}
+
+.decode-match-error {
+  color: hsl(0 84% 60%);
+  background: hsl(0 84% 60% / 0.1);
+  border: 1px solid hsl(0 84% 60% / 0.3);
+  box-shadow: 0 0 12px hsl(0 84% 60% / 0.2), inset 0 0 8px hsl(0 84% 60% / 0.05);
+  backdrop-filter: blur(8px);
+}
+
+@keyframes glow-breathe-green {
+  0%, 100% { box-shadow: 0 0 12px hsl(142 71% 45% / 0.2), inset 0 0 8px hsl(142 71% 45% / 0.05); }
+  50% { box-shadow: 0 0 20px hsl(142 71% 45% / 0.35), inset 0 0 12px hsl(142 71% 45% / 0.1); }
+}
