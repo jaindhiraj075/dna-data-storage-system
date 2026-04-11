@@ -15,7 +15,7 @@
     --popover: 220 25% 8%;
     --popover-foreground: 200 100% 95%;
 
-    --primary: 200 100% 50%;
+    --primary: 185 100% 50%;
     --primary-foreground: 220 20% 4%;
 
     --secondary: 260 80% 60%;
@@ -32,7 +32,7 @@
 
     --border: 200 40% 18%;
     --input: 200 40% 18%;
-    --ring: 200 100% 50%;
+    --ring: 185 100% 50%;
 
     --radius: 0.75rem;
 
@@ -41,7 +41,11 @@
     --dna-green: 145 80% 45%;
     --dna-yellow: 45 100% 55%;
 
-    --glow-primary: 0 0 20px hsl(200 100% 50% / 0.4);
+    --glow-cyan: 185 100% 50%;
+    --glow-blue: 217 91% 60%;
+    --glow-purple: 271 91% 65%;
+
+    --glow-primary: 0 0 20px hsl(185 100% 50% / 0.4);
     --glow-accent: 0 0 20px hsl(160 100% 45% / 0.4);
     --glass-bg: hsl(220 25% 8% / 0.6);
     --glass-border: hsl(200 40% 30% / 0.3);
@@ -64,15 +68,219 @@
   }
 }
 
-/* Glassmorphism utility */
+/* ========== GLASSMORPHISM ========== */
 .glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
+  background: hsl(220 25% 8% / 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid hsl(185 100% 50% / 0.12);
+  box-shadow:
+    0 0 20px hsl(185 100% 50% / 0.05),
+    inset 0 1px 0 hsl(200 100% 80% / 0.06);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.glass:hover {
+  border-color: hsl(185 100% 50% / 0.25);
+  box-shadow:
+    0 0 30px hsl(185 100% 50% / 0.1),
+    0 0 60px hsl(260 80% 60% / 0.05),
+    inset 0 1px 0 hsl(200 100% 80% / 0.08);
 }
 
-/* DNA Helix Background */
+/* ========== NEON TEXT GLOW ========== */
+.neon-title {
+  text-shadow:
+    0 0 10px hsl(185 100% 50% / 0.8),
+    0 0 30px hsl(185 100% 50% / 0.5),
+    0 0 60px hsl(217 91% 60% / 0.3),
+    0 0 100px hsl(271 91% 65% / 0.15);
+  animation: neon-breathe 3s ease-in-out infinite;
+}
+
+@keyframes neon-breathe {
+  0%, 100% {
+    text-shadow:
+      0 0 10px hsl(185 100% 50% / 0.8),
+      0 0 30px hsl(185 100% 50% / 0.5),
+      0 0 60px hsl(217 91% 60% / 0.3),
+      0 0 100px hsl(271 91% 65% / 0.15);
+  }
+  50% {
+    text-shadow:
+      0 0 15px hsl(185 100% 50% / 1),
+      0 0 40px hsl(185 100% 50% / 0.7),
+      0 0 80px hsl(217 91% 60% / 0.5),
+      0 0 120px hsl(271 91% 65% / 0.25);
+  }
+}
+
+/* ========== SHIMMER ========== */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(185 100% 80% / 0.08),
+    hsl(185 100% 80% / 0.15),
+    hsl(185 100% 80% / 0.08),
+    transparent
+  );
+  animation: shimmer-sweep 4s ease-in-out infinite;
+}
+
+@keyframes shimmer-sweep {
+  0% { left: -100%; }
+  50% { left: 150%; }
+  100% { left: 150%; }
+}
+
+/* ========== NEON UNDERLINE ========== */
+.neon-line {
+  display: block;
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(90deg, transparent, hsl(185 100% 50%), hsl(217 91% 60%), hsl(271 91% 65%), transparent);
+  box-shadow: 0 0 8px hsl(185 100% 50% / 0.6), 0 0 20px hsl(217 91% 60% / 0.3);
+  animation: neon-line-pulse 3s ease-in-out infinite;
+}
+
+@keyframes neon-line-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* ========== GLOW BOX ========== */
+.glow-box {
+  position: relative;
+}
+.glow-box::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, hsl(185 100% 50% / 0.2), hsl(271 91% 65% / 0.1), transparent);
+  z-index: -1;
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.glow-box:hover::before {
+  opacity: 1;
+}
+
+/* ========== BUTTON GLOW ========== */
+.btn-glow {
+  @apply relative overflow-hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px hsl(185 100% 50% / 0.2);
+}
+.btn-glow:hover {
+  box-shadow:
+    0 0 20px hsl(185 100% 50% / 0.5),
+    0 0 40px hsl(185 100% 50% / 0.25),
+    0 0 60px hsl(217 91% 60% / 0.15);
+  transform: translateY(-2px);
+}
+.btn-glow:focus-visible {
+  outline: 2px solid hsl(185 100% 50% / 0.6);
+  outline-offset: 2px;
+  box-shadow: 0 0 25px hsl(185 100% 50% / 0.4);
+}
+.btn-glow::after {
+  content: '';
+  @apply absolute inset-0;
+  background: linear-gradient(135deg, transparent 40%, hsl(185 100% 80% / 0.12) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+.btn-glow:hover::after {
+  transform: translateX(100%);
+}
+
+/* ========== ICON GLOW + FLOAT ========== */
+.icon-glow {
+  filter: drop-shadow(0 0 6px hsl(185 100% 50% / 0.6));
+  animation: icon-float 3s ease-in-out infinite;
+}
+
+@keyframes icon-float {
+  0%, 100% { transform: translateY(0); filter: drop-shadow(0 0 6px hsl(185 100% 50% / 0.6)); }
+  50% { transform: translateY(-4px); filter: drop-shadow(0 0 12px hsl(185 100% 50% / 0.9)); }
+}
+
+/* ========== DNA BLOCK GLOW ========== */
+.dna-block-glow {
+  box-shadow: 0 0 8px currentColor;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.dna-block-glow:hover {
+  box-shadow: 0 0 16px currentColor, 0 0 30px currentColor;
+  transform: scale(1.15);
+}
+
+/* ========== RADIAL LIGHT BEHIND HEADER ========== */
+.radial-hero-light {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 600px;
+  background: radial-gradient(ellipse, hsl(185 100% 50% / 0.08) 0%, hsl(271 91% 65% / 0.04) 40%, transparent 70%);
+  pointer-events: none;
+  animation: radial-pulse 5s ease-in-out infinite;
+}
+
+@keyframes radial-pulse {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+}
+
+/* ========== GRID OVERLAY ========== */
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(hsl(185 100% 50% / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(185 100% 50% / 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* ========== BLOOM / REFLECTION ========== */
+.glow-reflection {
+  position: relative;
+}
+.glow-reflection::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 10%;
+  right: 10%;
+  height: 20px;
+  background: radial-gradient(ellipse, hsl(185 100% 50% / 0.08), transparent);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: hsl(var(--background)); }
+::-webkit-scrollbar-thumb { background: hsl(var(--primary) / 0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--primary) / 0.5); }
+
+html { scroll-behavior: smooth; }
+
+/* ========== KEYFRAMES ========== */
 @keyframes helix-rotate {
   0% { transform: rotateY(0deg); }
   100% { transform: rotateY(360deg); }
@@ -83,39 +291,7 @@
   50% { transform: translateY(-20px) translateX(10px); opacity: 0.8; }
 }
 
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: var(--glow-primary); }
-  50% { box-shadow: 0 0 40px hsl(200 100% 50% / 0.6); }
-}
-
 @keyframes typing-cursor {
   0%, 100% { border-color: hsl(var(--primary)); }
   50% { border-color: transparent; }
 }
-
-.btn-glow {
-  @apply relative overflow-hidden;
-  transition: all 0.3s ease;
-}
-.btn-glow:hover {
-  box-shadow: 0 0 30px hsl(var(--primary) / 0.5), 0 0 60px hsl(var(--primary) / 0.2);
-  transform: translateY(-2px);
-}
-.btn-glow::after {
-  content: '';
-  @apply absolute inset-0;
-  background: linear-gradient(135deg, transparent 40%, hsl(var(--primary) / 0.1) 50%, transparent 60%);
-  transform: translateX(-100%);
-  transition: transform 0.6s;
-}
-.btn-glow:hover::after {
-  transform: translateX(100%);
-}
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: hsl(var(--background)); }
-::-webkit-scrollbar-thumb { background: hsl(var(--primary) / 0.3); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: hsl(var(--primary) / 0.5); }
-
-html { scroll-behavior: smooth; }

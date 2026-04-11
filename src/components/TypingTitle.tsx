@@ -18,10 +18,11 @@ const TypingTitle = ({ text }: { text: string }) => {
   }, [text]);
 
   return (
-    <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold tracking-wider text-foreground">
+    <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold tracking-wider text-foreground neon-title">
       {displayed}
       <span
         className={`inline-block w-0.5 h-8 md:h-12 ml-1 align-middle bg-primary ${done ? "animate-pulse" : ""}`}
+        style={{ boxShadow: "0 0 8px hsl(185 100% 50% / 0.8)" }}
       />
     </h1>
   );
