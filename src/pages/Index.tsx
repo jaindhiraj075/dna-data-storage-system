@@ -237,6 +237,33 @@ const Index = () => {
                       style={{ textShadow: "0 0 6px hsl(185 100% 50% / 0.3)" }}>
                       {decodedText}
                     </div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 12, scale: 0.9 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ delay: 0.3, type: "spring", stiffness: 300, damping: 20 }}
+                      className="mt-4 flex justify-center"
+                    >
+                      {decodedText === inputText ? (
+                        <span className="decode-match-success inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-display font-semibold">
+                          <motion.span
+                            initial={{ scale: 0, rotate: -90 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ delay: 0.5, type: "spring", stiffness: 400, damping: 12 }}
+                            className="text-base"
+                          >✔</motion.span>
+                          Perfect match with original
+                        </span>
+                      ) : (
+                        <motion.span
+                          animate={{ x: [0, -4, 4, -4, 4, 0] }}
+                          transition={{ delay: 0.4, duration: 0.4 }}
+                          className="decode-match-error inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-display font-semibold"
+                        >
+                          <span className="text-base">✖</span>
+                          Data mismatch detected
+                        </motion.span>
+                      )}
+                    </motion.div>
                   </motion.div>
                 )}
               </AnimatePresence>
