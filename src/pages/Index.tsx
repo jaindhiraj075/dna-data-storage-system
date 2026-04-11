@@ -10,32 +10,19 @@ const BINARY_MAP: Record<string, string> = { "00": "A", "01": "T", "10": "C", "1
 const DNA_MAP: Record<string, string> = { A: "00", T: "01", C: "10", G: "11" };
 
 function textToBinary(text: string): string {
-  return text
-    .split("")
-    .map((c) => c.charCodeAt(0).toString(2).padStart(8, "0"))
-    .join("");
+  return text.split("").map((c) => c.charCodeAt(0).toString(2).padStart(8, "0")).join("");
 }
-
 function binaryToDNA(binary: string): string {
   let dna = "";
-  for (let i = 0; i < binary.length; i += 2) {
-    dna += BINARY_MAP[binary.substring(i, i + 2)] || "";
-  }
+  for (let i = 0; i < binary.length; i += 2) dna += BINARY_MAP[binary.substring(i, i + 2)] || "";
   return dna;
 }
-
 function dnaToBinary(dna: string): string {
-  return dna
-    .split("")
-    .map((b) => DNA_MAP[b] || "")
-    .join("");
+  return dna.split("").map((b) => DNA_MAP[b] || "").join("");
 }
-
 function binaryToText(binary: string): string {
   let text = "";
-  for (let i = 0; i < binary.length; i += 8) {
-    text += String.fromCharCode(parseInt(binary.substring(i, i + 8), 2));
-  }
+  for (let i = 0; i < binary.length; i += 8) text += String.fromCharCode(parseInt(binary.substring(i, i + 8), 2));
   return text;
 }
 
@@ -50,22 +37,17 @@ const Index = () => {
   const [dnaOutput, setDnaOutput] = useState("");
   const [decodedText, setDecodedText] = useState("");
   const [isEncoding, setIsEncoding] = useState(false);
-  const [step, setStep] = useState(0); // 0=idle, 1=binary, 2=dna, 3=done
+  const [step, setStep] = useState(0);
 
   const handleEncode = useCallback(() => {
-    if (!inputText.trim()) {
-      toast.error("Please enter some text to encode!");
-      return;
-    }
+    if (!inputText.trim()) { toast.error("Please enter some text to encode!"); return; }
     setDecodedText("");
     setIsEncoding(true);
     setStep(0);
-
     setTimeout(() => {
       const binary = textToBinary(inputText);
       setBinaryOutput(binary);
       setStep(1);
-
       setTimeout(() => {
         const dna = binaryToDNA(binary);
         setDnaOutput(dna);
@@ -76,48 +58,56 @@ const Index = () => {
   }, [inputText]);
 
   const handleDecode = useCallback(() => {
-    if (!dnaOutput) {
-      toast.error("No DNA sequence to decode! Encode some text first.");
-      return;
-    }
-    const binary = dnaToBinary(dnaOutput);
-    const text = binaryToText(binary);
-    setDecodedText(text);
+    if (!dnaOutput) { toast.error("No DNA sequence to decode! Encode some text first."); return; }
+    setDecodedText(binaryToText(dnaToBinary(dnaOutput)));
     setStep(3);
   }, [dnaOutput]);
 
   const handleCopy = useCallback(() => {
-    if (dnaOutput) {
-      navigator.clipboard.writeText(dnaOutput);
-      toast.success("DNA sequence copied!");
-    }
+    if (dnaOutput) { navigator.clipboard.writeText(dnaOutput); toast.success("DNA sequence copied!"); }
   }, [dnaOutput]);
 
   const handleReset = useCallback(() => {
-    setInputText("");
-    setBinaryOutput("");
-    setDnaOutput("");
-    setDecodedText("");
-    setStep(0);
-    setIsEncoding(false);
+    setInputText(""); setBinaryOutput(""); setDnaOutput(""); setDecodedText(""); setStep(0); setIsEncoding(false);
   }, []);
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       <DNAHelix />
 
+      {/* Grid overlay */}
+      <div className="grid-overlay" style={{ zIndex: 0 }} />
+
       {/* Gradient overlay */}
       <div className="fixed inset-0 bg-gradient-to-br from-background via-background/95 to-background/80 pointer-events-none" style={{ zIndex: 1 }} />
 
       <div className="relative z-10">
         {/* Header */}
-        <header className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4 pt-12">
+        <header className="relative min-h-[60vh] flex flex-col items-center justify-center text-center px-4 pt-12">
+          {/* Radial hero light */}
+          <div className="radial-hero-light" />
+
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
-            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-display tracking-widest uppercase border border-primary/30 text-primary mb-6">
+            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-display tracking-widest uppercase border border-primary/30 text-primary mb-6"
+              style={{ boxShadow: "0 0 12px hsl(185 100% 50% / 0.2)" }}>
               Bioinformatics Project
             </span>
           </motion.div>
-          <TypingTitle text="DNA Data Storage System" />
+
+          <div className="shimmer glow-reflection">
+            <TypingTitle text="DNA Data Storage System" />
+          </div>
+
+          {/* Neon underline */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ delay: 2.2, duration: 0.8 }}
+            className="mt-3 w-48 md:w-72 mx-auto"
+          >
+            <span className="neon-line w-full" />
+          </motion.div>
+
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -126,12 +116,7 @@ const Index = () => {
           >
             Future of Data Storage — Inspired by Biology
           </motion.p>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 3 }}
-            className="mt-10"
-          >
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3 }} className="mt-10">
             <a href="#encode" className="text-muted-foreground hover:text-primary transition-colors">
               <ChevronDown className="w-6 h-6 animate-bounce" />
             </a>
@@ -147,21 +132,20 @@ const Index = () => {
           viewport={{ once: true, margin: "-100px" }}
           className="max-w-3xl mx-auto px-4 py-16"
         >
-          <div className="glass rounded-2xl p-6 md:p-8">
+          <div className="glass glow-box shimmer rounded-2xl p-6 md:p-8">
             <h2 className="text-xl md:text-2xl font-display font-semibold text-foreground mb-1">
-              <Zap className="inline w-5 h-5 text-primary mr-2" />
+              <Zap className="inline w-5 h-5 text-primary mr-2 icon-glow" />
               Encode Text to DNA
             </h2>
             <p className="text-muted-foreground text-sm mb-5 font-body">Enter any text to convert it into a DNA sequence</p>
-
             <textarea
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Type your message here..."
               rows={4}
-              className="w-full bg-muted/50 border border-border rounded-xl px-4 py-3 text-foreground font-body text-base focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none placeholder:text-muted-foreground/50 transition-all"
+              className="w-full bg-muted/50 border border-border rounded-xl px-4 py-3 text-foreground font-body text-base focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/40 resize-none placeholder:text-muted-foreground/50 transition-all"
+              style={{ boxShadow: "inset 0 2px 10px hsl(220 20% 4% / 0.5)" }}
             />
-
             <div className="flex gap-3 mt-4">
               <button onClick={handleEncode} disabled={isEncoding} className="btn-glow bg-primary text-primary-foreground font-display text-sm font-semibold px-6 py-2.5 rounded-xl disabled:opacity-50 transition-all">
                 {isEncoding ? (
@@ -171,7 +155,7 @@ const Index = () => {
                   </span>
                 ) : "Encode"}
               </button>
-              <button onClick={handleReset} className="bg-muted hover:bg-muted/80 text-muted-foreground font-display text-sm font-semibold px-5 py-2.5 rounded-xl transition-all flex items-center gap-2">
+              <button onClick={handleReset} className="bg-muted hover:bg-muted/80 text-muted-foreground font-display text-sm font-semibold px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 hover:text-primary">
                 <RotateCcw className="w-4 h-4" /> Reset
               </button>
             </div>
@@ -188,10 +172,11 @@ const Index = () => {
               transition={{ duration: 0.5 }}
               className="max-w-3xl mx-auto px-4 pb-8"
             >
-              <div className="glass rounded-2xl p-6 md:p-8 mb-6">
+              <div className="glass glow-box rounded-2xl p-6 md:p-8 mb-6 glow-reflection">
                 <h3 className="text-lg font-display font-semibold text-foreground mb-1">Step 1: Binary Representation</h3>
                 <p className="text-muted-foreground text-xs mb-3 font-body">Each character converted to 8-bit ASCII binary</p>
-                <div className="bg-muted/40 rounded-xl p-4 font-mono text-xs md:text-sm text-primary break-all leading-relaxed max-h-40 overflow-y-auto">
+                <div className="bg-muted/40 rounded-xl p-4 font-mono text-xs md:text-sm text-primary break-all leading-relaxed max-h-40 overflow-y-auto"
+                  style={{ textShadow: "0 0 8px hsl(185 100% 50% / 0.4)" }}>
                   {binaryOutput}
                 </div>
               </div>
@@ -206,10 +191,10 @@ const Index = () => {
               transition={{ duration: 0.5 }}
               className="max-w-3xl mx-auto px-4 pb-8"
             >
-              <div className="glass rounded-2xl p-6 md:p-8">
+              <div className="glass glow-box rounded-2xl p-6 md:p-8 glow-reflection">
                 <div className="flex items-center justify-between mb-1">
                   <h3 className="text-lg font-display font-semibold text-foreground">Step 2: DNA Sequence</h3>
-                  <button onClick={handleCopy} className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1 text-xs font-display">
+                  <button onClick={handleCopy} className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1 text-xs font-display hover:drop-shadow-[0_0_6px_hsl(185_100%_50%/0.5)]">
                     <Copy className="w-4 h-4" /> Copy
                   </button>
                 </div>
@@ -235,26 +220,21 @@ const Index = () => {
             transition={{ duration: 0.5 }}
             className="max-w-3xl mx-auto px-4 py-8"
           >
-            <div className="glass rounded-2xl p-6 md:p-8">
+            <div className="glass glow-box shimmer rounded-2xl p-6 md:p-8">
               <h2 className="text-xl md:text-2xl font-display font-semibold text-foreground mb-1">
-                <Unlock className="inline w-5 h-5 text-accent mr-2" />
+                <Unlock className="inline w-5 h-5 text-accent mr-2 icon-glow" />
                 Decode DNA Back to Text
               </h2>
               <p className="text-muted-foreground text-sm mb-5 font-body">Reverse the process: DNA → Binary → Text</p>
-
               <button onClick={handleDecode} className="btn-glow bg-accent text-accent-foreground font-display text-sm font-semibold px-6 py-2.5 rounded-xl transition-all">
                 Decode
               </button>
-
               <AnimatePresence>
                 {decodedText && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    className="mt-5"
-                  >
+                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="mt-5">
                     <p className="text-xs text-muted-foreground font-body mb-2">Decoded Output:</p>
-                    <div className="bg-muted/40 rounded-xl p-4 text-foreground font-body text-base md:text-lg">
+                    <div className="bg-muted/40 rounded-xl p-4 text-foreground font-body text-base md:text-lg"
+                      style={{ textShadow: "0 0 6px hsl(185 100% 50% / 0.3)" }}>
                       {decodedText}
                     </div>
                   </motion.div>
@@ -272,7 +252,7 @@ const Index = () => {
           viewport={{ once: true, margin: "-100px" }}
           className="max-w-3xl mx-auto px-4 py-16"
         >
-          <div className="glass rounded-2xl p-6 md:p-8">
+          <div className="glass glow-box shimmer rounded-2xl p-6 md:p-8">
             <h2 className="text-xl md:text-2xl font-display font-semibold text-foreground mb-4">About DNA Data Storage</h2>
             <div className="space-y-4 text-muted-foreground font-body text-sm md:text-base leading-relaxed">
               <p>
@@ -291,9 +271,9 @@ const Index = () => {
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ delay: i * 0.1 }}
                     viewport={{ once: true }}
-                    className="bg-muted/30 rounded-xl p-4 border border-border/50"
+                    className="glow-box bg-muted/30 rounded-xl p-4 border border-border/50 transition-all hover:border-primary/30"
                   >
-                    <h4 className="font-display text-sm font-semibold text-primary mb-1">{item.title}</h4>
+                    <h4 className="font-display text-sm font-semibold text-primary mb-1" style={{ textShadow: "0 0 8px hsl(185 100% 50% / 0.4)" }}>{item.title}</h4>
                     <p className="text-xs text-muted-foreground">{item.desc}</p>
                   </motion.div>
                 ))}
@@ -304,7 +284,7 @@ const Index = () => {
 
         {/* Footer */}
         <footer className="text-center py-10 px-4 border-t border-border/30">
-          <p className="font-display text-sm text-muted-foreground tracking-wide">
+          <p className="font-display text-sm text-muted-foreground tracking-wide" style={{ textShadow: "0 0 10px hsl(185 100% 50% / 0.2)" }}>
             DNA-Based Data Storage System
           </p>
           <p className="text-xs text-muted-foreground/60 mt-1 font-body">
