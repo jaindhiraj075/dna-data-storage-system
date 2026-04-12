@@ -79,10 +79,10 @@ const Index = () => {
       {/* Grid overlay */}
       <div className="grid-overlay" style={{ zIndex: 0 }} />
 
-      {/* Enhanced gradient overlay — brighter, premium dark-blue */}
-      <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 1, background: "linear-gradient(160deg, hsl(220 45% 6%) 0%, hsl(217 50% 10%) 35%, hsl(210 45% 9%) 60%, hsl(200 60% 12%) 100%)" }} />
-      {/* Soft vignette */}
-      <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 1, background: "radial-gradient(ellipse at center, transparent 50%, hsl(220 45% 4% / 0.5) 100%)" }} />
+      {/* Enhanced gradient overlay */}
+      <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 1, background: "linear-gradient(135deg, hsl(220 50% 3%) 0%, hsl(217 50% 8%) 30%, hsl(220 40% 6%) 60%, hsl(200 80% 8%) 100%)" }} />
+      {/* Vignette */}
+      <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 1, background: "radial-gradient(ellipse at center, transparent 40%, hsl(220 50% 3% / 0.7) 100%)" }} />
 
       <div className="relative z-10">
         {/* Header */}
