@@ -2,7 +2,6 @@ import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import DNAHelix from "@/components/DNAHelix";
-import DNAHelix3D from "@/components/DNAHelix3D";
 import TypingTitle from "@/components/TypingTitle";
 import DNABlocks from "@/components/DNABlocks";
 import { Copy, RotateCcw, Zap, Unlock, ChevronDown } from "lucide-react";
@@ -79,18 +78,14 @@ const Index = () => {
       {/* Grid overlay */}
       <div className="grid-overlay" style={{ zIndex: 0 }} />
 
-      {/* Enhanced gradient overlay */}
-      <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 1, background: "linear-gradient(135deg, hsl(220 50% 3%) 0%, hsl(217 50% 8%) 30%, hsl(220 40% 6%) 60%, hsl(200 80% 8%) 100%)" }} />
-      {/* Vignette */}
-      <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 1, background: "radial-gradient(ellipse at center, transparent 40%, hsl(220 50% 3% / 0.7) 100%)" }} />
+      {/* Gradient overlay */}
+      <div className="fixed inset-0 bg-gradient-to-br from-background via-background/95 to-background/80 pointer-events-none" style={{ zIndex: 1 }} />
 
       <div className="relative z-10">
         {/* Header */}
-        <header className="relative min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-12">
+        <header className="relative min-h-[60vh] flex flex-col items-center justify-center text-center px-4 pt-12">
           {/* Radial hero light */}
           <div className="radial-hero-light" />
-          {/* 3D DNA Helix */}
-          <DNAHelix3D />
 
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
             <span className="inline-block px-4 py-1.5 rounded-full text-xs font-display tracking-widest uppercase border border-primary/30 text-primary mb-6"

@@ -230,15 +230,12 @@
 /* ========== RADIAL LIGHT BEHIND HEADER ========== */
 .radial-hero-light {
   position: absolute;
-  top: -30%;
-  left: 40%;
+  top: -20%;
+  left: 50%;
   transform: translateX(-50%);
-  width: 1000px;
-  height: 800px;
-  background:
-    radial-gradient(ellipse at 40% 50%, hsl(185 100% 50% / 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 60% 40%, hsl(217 91% 60% / 0.08) 0%, transparent 45%),
-    radial-gradient(ellipse at 50% 60%, hsl(271 91% 65% / 0.06) 0%, transparent 55%);
+  width: 800px;
+  height: 600px;
+  background: radial-gradient(ellipse, hsl(185 100% 50% / 0.08) 0%, hsl(271 91% 65% / 0.04) 40%, transparent 70%);
   pointer-events: none;
   animation: radial-pulse 5s ease-in-out infinite;
 }
