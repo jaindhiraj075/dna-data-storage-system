@@ -68,12 +68,12 @@ function HelixStrand() {
       <group ref={groupRef}>
         {/* Strand backbones */}
         <mesh>
-          <tubeGeometry args={[strandCurve1, 120, 0.06, 8, false]} />
-          <meshStandardMaterial color="#00d4ff" emissive="#00d4ff" emissiveIntensity={1.5} transparent opacity={0.8} />
+          <tubeGeometry args={[strandCurve1, 120, 0.07, 8, false]} />
+          <meshStandardMaterial color="#00f0ff" emissive="#00f0ff" emissiveIntensity={2} transparent opacity={0.9} />
         </mesh>
         <mesh>
-          <tubeGeometry args={[strandCurve2, 120, 0.06, 8, false]} />
-          <meshStandardMaterial color="#a855f7" emissive="#a855f7" emissiveIntensity={1.5} transparent opacity={0.8} />
+          <tubeGeometry args={[strandCurve2, 120, 0.07, 8, false]} />
+          <meshStandardMaterial color="#a855f7" emissive="#a855f7" emissiveIntensity={2} transparent opacity={0.9} />
         </mesh>
 
         {/* Nodes */}
@@ -127,15 +127,17 @@ function HelixStrand() {
 
 const DNAHelix3D = () => {
   return (
-    <div className="absolute right-0 top-0 w-[40%] h-[60vh] pointer-events-auto" style={{ zIndex: 2 }}>
+    <div className="hidden md:block absolute right-0 top-0 w-[35%] lg:w-[40%] h-[60vh] pointer-events-auto" style={{ zIndex: 2 }}>
       <Canvas
         camera={{ position: [0, 0, 10], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
         style={{ background: "transparent" }}
       >
-        <ambientLight intensity={0.3} />
-        <pointLight position={[5, 5, 5]} intensity={1} color="#00d4ff" />
-        <pointLight position={[-5, -3, 3]} intensity={0.6} color="#a855f7" />
+        <ambientLight intensity={0.5} />
+        <pointLight position={[5, 5, 5]} intensity={1.2} color="#00f0ff" />
+        <pointLight position={[-5, -3, 3]} intensity={0.8} color="#a855f7" />
+        <pointLight position={[0, -6, 4]} intensity={0.4} color="#3b82f6" />
+        <hemisphereLight args={["#00f0ff", "#0f172a", 0.3]} />
         <HelixStrand />
         <OrbitControls
           enableZoom={false}
