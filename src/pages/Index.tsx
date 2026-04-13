@@ -133,17 +133,21 @@ const Index = () => {
               transition={{ delay: 1, duration: 0.8 }}
               className="hidden md:block flex-shrink-0"
             >
-              <div className="relative w-[280px] lg:w-[360px] rounded-2xl overflow-hidden"
+              <div className="relative w-[280px] lg:w-[360px]"
                 style={{
-                  boxShadow: "0 0 30px hsl(185 100% 50% / 0.2), 0 0 60px hsl(217 91% 60% / 0.1), 0 8px 32px hsl(220 20% 4% / 0.6)",
-                  border: "1px solid hsl(185 100% 50% / 0.15)",
+                  filter: "drop-shadow(0 0 20px hsl(185 100% 50% / 0.3)) drop-shadow(0 0 40px hsl(217 91% 60% / 0.15))",
                 }}>
                 <video
                   autoPlay
                   muted
                   loop
                   playsInline
-                  className="w-full h-auto block"
+                  className="w-full h-auto block rounded-2xl"
+                  style={{
+                    mixBlendMode: "screen",
+                    WebkitMaskImage: "radial-gradient(ellipse at center, black 60%, transparent 100%)",
+                    maskImage: "radial-gradient(ellipse at center, black 60%, transparent 100%)",
+                  }}
                   src="/dna-helix.mp4"
                 />
               </div>
