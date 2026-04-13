@@ -83,44 +83,72 @@ const Index = () => {
 
       <div className="relative z-10">
         {/* Header */}
-        <header className="relative min-h-[60vh] flex flex-col items-center justify-center text-center px-4 pt-12">
+        <header className="relative min-h-[60vh] flex items-center justify-center px-4 pt-12">
           {/* Radial hero light */}
           <div className="radial-hero-light" />
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
-            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-display tracking-widest uppercase border border-primary/30 text-primary mb-6"
-              style={{ boxShadow: "0 0 12px hsl(185 100% 50% / 0.2)" }}>
-              Bioinformatics Project
-            </span>
-          </motion.div>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 w-full max-w-6xl">
+            {/* Left: Text content */}
+            <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
+                <span className="inline-block px-4 py-1.5 rounded-full text-xs font-display tracking-widest uppercase border border-primary/30 text-primary mb-6"
+                  style={{ boxShadow: "0 0 12px hsl(185 100% 50% / 0.2)" }}>
+                  Bioinformatics Project
+                </span>
+              </motion.div>
 
-          <div className="shimmer glow-reflection">
-            <TypingTitle text="DNA Data Storage System" />
+              <div className="shimmer glow-reflection">
+                <TypingTitle text="DNA Data Storage System" />
+              </div>
+
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ delay: 2.2, duration: 0.8 }}
+                className="mt-3 w-48 md:w-72"
+                style={{ transformOrigin: "left" }}
+              >
+                <span className="neon-line w-full" />
+              </motion.div>
+
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 2.5, duration: 0.6 }}
+                className="mt-4 text-lg md:text-xl text-muted-foreground font-body max-w-xl"
+              >
+                Future of Data Storage — Inspired by Biology
+              </motion.p>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3 }} className="mt-10">
+                <a href="#encode" className="text-muted-foreground hover:text-primary transition-colors">
+                  <ChevronDown className="w-6 h-6 animate-bounce" />
+                </a>
+              </motion.div>
+            </div>
+
+            {/* Right: DNA Helix Video */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1, duration: 0.8 }}
+              className="hidden md:block flex-shrink-0"
+            >
+              <div className="relative w-[280px] lg:w-[360px] rounded-2xl overflow-hidden"
+                style={{
+                  boxShadow: "0 0 30px hsl(185 100% 50% / 0.2), 0 0 60px hsl(217 91% 60% / 0.1), 0 8px 32px hsl(220 20% 4% / 0.6)",
+                  border: "1px solid hsl(185 100% 50% / 0.15)",
+                }}>
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-auto block"
+                  src="/dna-helix.mp4"
+                />
+              </div>
+            </motion.div>
           </div>
-
-          {/* Neon underline */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 2.2, duration: 0.8 }}
-            className="mt-3 w-48 md:w-72 mx-auto"
-          >
-            <span className="neon-line w-full" />
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.5, duration: 0.6 }}
-            className="mt-4 text-lg md:text-xl text-muted-foreground font-body max-w-xl"
-          >
-            Future of Data Storage — Inspired by Biology
-          </motion.p>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3 }} className="mt-10">
-            <a href="#encode" className="text-muted-foreground hover:text-primary transition-colors">
-              <ChevronDown className="w-6 h-6 animate-bounce" />
-            </a>
-          </motion.div>
         </header>
 
         {/* Encode Section */}
